@@ -1,17 +1,16 @@
+import Home from "./pages/Home";
+import Signup from "./pages/Signup";
+import Login from "./pages/Login";
+import App from "./App";
+
 const routes = [
   {
     path: "/",
-    element: <App />,
+    element: <Home />,
     children: [
-      { path: "/", element: <Home /> },
-      { path: "/collection", element: <Collection /> },
-      { path: "/about", element: <About /> },
-      { path: "/contact", element: <Contact /> },
-      { path: "/product/:productId", element: <Product /> },
-      { path: "/cart", element: <Cart /> },
+      { path: "/signup", element: <Signup /> },
       { path: "/login", element: <Login /> },
-      { path: "/place-order", element: <PlaceOrder /> },
-      { path: "/orders", element: <Orders /> },
+      { path: "/menu", element: <App /> },
     ],
   },
 ];

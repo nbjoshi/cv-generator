@@ -6,6 +6,7 @@ import AddExperienceSection from "./components/experience/AddExperienceSection";
 import Resume from "./components/Resume";
 import TemplateLoader from "./components/TemplateLoader";
 import exampleData, { generateUniqueId } from "./example-data";
+import Navbar from "./components/Navbar";
 
 export default function App() {
   const [personalInfo, setPersonalInfo] = useState(exampleData.personalInfo);
@@ -126,66 +127,69 @@ export default function App() {
   const toggleHidden = (e) => toggleValue(e, "isHidden");
 
   return (
-    <div className="app">
-      <div className="edit-side">
-        <div className="form-container">
-          <TemplateLoader
-            onTemplateLoad={() => {
-              setPersonalInfo(exampleData.personalInfo);
-              setSections(exampleData.sections);
-            }}
-            onClear={() => {
-              setPersonalInfo({
-                fullName: "",
-                email: "",
-                phoneNumber: "",
-                address: "",
-              });
-              setSections({ educations: [], experiences: [] });
-              setPrevState(null);
-            }}
-          />
-          {currentPage === "content" && (
-            <>
-              <PersonalDetails
-                onChange={handlePersonalInfoChange}
-                fullName={personalInfo.fullName}
-                email={personalInfo.email}
-                phoneNumber={personalInfo.phoneNumber}
-                address={personalInfo.address}
-              />
-              <AddEducationSection
-                educations={sections.educations}
-                isOpen={sectionOpen === "Education"}
-                onChange={handleSectionChange}
-                createForm={createEducationForm}
-                setOpen={setOpen}
-                onCancel={cancelForm}
-                toggleCollapsed={toggleCollapsed}
-                onHide={toggleHidden}
-                onRemove={removeForm}
-              />
-              <AddExperienceSection
-                experiences={sections.experiences}
-                isOpen={sectionOpen === "Experience"}
-                onChange={handleSectionChange}
-                createForm={createExperienceForm}
-                setOpen={setOpen}
-                onCancel={cancelForm}
-                toggleCollapsed={toggleCollapsed}
-                onHide={toggleHidden}
-                onRemove={removeForm}
-              />
-            </>
-          )}
+    <>
+      <Navbar />
+      <div className="app">
+        <div className="edit-side">
+          <div className="form-container">
+            <TemplateLoader
+              onTemplateLoad={() => {
+                setPersonalInfo(exampleData.personalInfo);
+                setSections(exampleData.sections);
+              }}
+              onClear={() => {
+                setPersonalInfo({
+                  fullName: "",
+                  email: "",
+                  phoneNumber: "",
+                  address: "",
+                });
+                setSections({ educations: [], experiences: [] });
+                setPrevState(null);
+              }}
+            />
+            {currentPage === "content" && (
+              <>
+                <PersonalDetails
+                  onChange={handlePersonalInfoChange}
+                  fullName={personalInfo.fullName}
+                  email={personalInfo.email}
+                  phoneNumber={personalInfo.phoneNumber}
+                  address={personalInfo.address}
+                />
+                <AddEducationSection
+                  educations={sections.educations}
+                  isOpen={sectionOpen === "Education"}
+                  onChange={handleSectionChange}
+                  createForm={createEducationForm}
+                  setOpen={setOpen}
+                  onCancel={cancelForm}
+                  toggleCollapsed={toggleCollapsed}
+                  onHide={toggleHidden}
+                  onRemove={removeForm}
+                />
+                <AddExperienceSection
+                  experiences={sections.experiences}
+                  isOpen={sectionOpen === "Experience"}
+                  onChange={handleSectionChange}
+                  createForm={createExperienceForm}
+                  setOpen={setOpen}
+                  onCancel={cancelForm}
+                  toggleCollapsed={toggleCollapsed}
+                  onHide={toggleHidden}
+                  onRemove={removeForm}
+                />
+              </>
+            )}
+          </div>
         </div>
-      </div>
 
-      <Resume
-        personalInfo={personalInfo}
-        sections={sections}
-        layout={resumeLayout}
-      />
-    </div>
+        <Resume
+          personalInfo={personalInfo}
+          sections={sections}
+          layout={resumeLayout}
+        />
+      </div>
+    </>
   );
 }

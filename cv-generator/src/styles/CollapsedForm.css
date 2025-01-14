@@ -16,3 +16,15 @@
 .collapsed-form-title {
   font-size: 17px;
 }
+
+.eye {
+  color: rgb(77, 77, 77);
+  transition: 0.2s;
+  font-size: 18px;
+  width: 42.5px;
+  padding: 10px;
+}
+
+.eye:hover {
+  color: black;
+}

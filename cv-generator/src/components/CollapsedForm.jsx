@@ -1,4 +1,6 @@
 import "../styles/CollapsedForm.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEyeSlash, faEye } from "@fortawesome/free-regular-svg-icons";
 
 export default function CollapsedForm(props) {
   const { onClick, hideForm, title, arrayName } = props;
@@ -11,6 +13,14 @@ export default function CollapsedForm(props) {
       data-array-name={arrayName}
     >
       <p className="collapsed-form-title">{title}</p>
+      <FontAwesomeIcon
+        icon={isHidden ? faEyeSlash : faEye}
+        className="eye"
+        onClick={(e) => {
+          e.stopPropagation();
+          hideForm(e);
+        }}
+      />
     </button>
   );
 }

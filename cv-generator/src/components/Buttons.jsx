@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import "../styles/Buttons.css";
 
 export default function Buttons({ cancel, save, remove }) {
   return (
