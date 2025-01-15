@@ -14,7 +14,7 @@ body {
   --header-resume-color: white;
   --section-resume-bg: rgba(14, 55, 78, 0.07);
   --main-bg-color: #f3f4f6;
-  background-color: var(--main-bg-color);
+  background-color: #7bafd4;
   font-family: "Times New Roman", Times, serif;
 }
 

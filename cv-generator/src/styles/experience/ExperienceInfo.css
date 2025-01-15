@@ -1,7 +1,6 @@
 .experience-info {
   display: flex;
   gap: 18px;
-  margin-bottom: 10px;
   justify-content: space-between;
 }
 
@@ -11,6 +10,7 @@
 
 .dates {
   text-align: right;
+  height: auto;
 }
 
 .experience-info-companyName {
@@ -24,6 +24,5 @@
 }
 
 .experience-info-description {
-  margin-top: 4px;
-  white-space: pre-wrap;
+  margin-bottom: 10px;
 }

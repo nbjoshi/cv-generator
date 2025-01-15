@@ -7,6 +7,7 @@ import Resume from "./components/Resume";
 import TemplateLoader from "./components/TemplateLoader";
 import exampleData, { generateUniqueId } from "./example-data";
 import Navbar from "./components/Navbar";
+import Sidebar from "./components/Sidebar";
 
 export default function App() {
   const [personalInfo, setPersonalInfo] = useState(exampleData.personalInfo);
@@ -189,6 +190,7 @@ export default function App() {
           sections={sections}
           layout={resumeLayout}
         />
+        <Sidebar />
       </div>
     </>
   );

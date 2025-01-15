@@ -16,7 +16,6 @@
   font-size: 13.5px;
   border-radius: 4px;
   border: none;
-  font-family: "NotoSans-bold";
   flex-grow: 1;
   transition: 0.1s;
 }
@@ -27,6 +26,7 @@
 
 .template-loader .load-example {
   padding: 6px;
+  background-color: lightgray;
 }
 
 .template-loader .clear-resume {
