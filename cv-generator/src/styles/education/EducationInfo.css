@@ -1,11 +1,12 @@
 .education-info {
   display: flex;
+  justify-content: space-between;
   gap: 18px;
-  margin-bottom: 24px;
 }
 
 .education-info-group {
   min-width: 150px;
+  text-align: right;
 }
 
 .education-info-schoolName {

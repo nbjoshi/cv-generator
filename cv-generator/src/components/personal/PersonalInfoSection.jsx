@@ -14,25 +14,11 @@ export default function PersonalInfoSection({
 }) {
   return (
     <div className="personal-info">
-      <h1 className="resume-name">{fullName}</h1>
+      <div className="resume-name">{fullName}</div>
       <div className="contact-info">
-        {email && (
-          <div>
-            <FontAwesomeIcon icon={faEnvelope} /> <span>{email}</span>
-          </div>
-        )}
-
-        {phoneNumber && (
-          <div>
-            <FontAwesomeIcon icon={faPhone} /> <span>{phoneNumber}</span>
-          </div>
-        )}
-
-        {address && (
-          <div>
-            <FontAwesomeIcon icon={faLocationDot} /> <span>{address}</span>
-          </div>
-        )}
+        <div> {email}</div>
+        <div> {phoneNumber}</div>
+        <div> {address}</div>
       </div>
     </div>
   );

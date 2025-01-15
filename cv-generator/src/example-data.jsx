@@ -59,6 +59,30 @@ const exampleData = {
         isHidden: false,
         id: generateUniqueId(),
       },
+      {
+        companyName: "Wayfarer Technologies",
+        positionTitle: "Product Manager Intern",
+        location: "London, UK",
+        description:
+          "Worked with cross-functional teams to launch an AI-based recommendation engine for e-commerce platforms, achieving a 15% increase in customer retention.",
+        startDate: "06/2019",
+        endDate: "08/2019",
+        isCollapsed: true,
+        isHidden: false,
+        id: generateUniqueId(),
+      },
+      {
+        companyName: "Solaris AI",
+        positionTitle: "Junior Data Analyst",
+        location: "Paris, France",
+        description:
+          "Analyzed large datasets to derive actionable insights, developed automated reporting pipelines, and visualized key metrics for stakeholders.",
+        startDate: "01/2023",
+        endDate: "11/2023",
+        isCollapsed: true,
+        isHidden: false,
+        id: generateUniqueId(),
+      },
     ],
   },
 };

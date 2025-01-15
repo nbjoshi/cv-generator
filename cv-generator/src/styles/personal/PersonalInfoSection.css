@@ -1,31 +1,17 @@
 .personal-info {
-  background-color: var(--resume-accent);
-  color: var(--header-resume-color);
-  width: 100%;
-  padding: 36px 24px;
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 56px 0rem 56px;
+  gap: 1rem;
 }
 
 .resume-name {
-  text-align: center;
+  font-weight: bold;
+  font-size: 2rem;
 }
 
 .contact-info {
   display: flex;
   flex-direction: column;
-  gap: 18px;
-  margin: auto;
-  width: fit-content;
-}
-
-.resume.top .contact-info {
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.contact-info > div {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 6px;
+  align-items: flex-end;
 }
