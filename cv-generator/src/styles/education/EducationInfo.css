@@ -2,6 +2,7 @@
   display: flex;
   justify-content: space-between;
   gap: 18px;
+  text-wrap: wrap;
 }
 
 .education-info-group {
@@ -16,4 +17,5 @@
 
 .education-info-degree {
   font-size: 15px;
+  text-align: left;
 }
