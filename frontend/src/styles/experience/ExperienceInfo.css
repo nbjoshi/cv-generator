@@ -1,0 +1,28 @@
+.experience-info {
+  display: flex;
+  gap: 18px;
+  justify-content: space-between;
+}
+
+.experience-info-group {
+  min-width: 150px;
+}
+
+.dates {
+  text-align: right;
+  height: auto;
+}
+
+.experience-info-companyName {
+  font-family: var(--resume-bold);
+  font-weight: bold;
+  margin-bottom: 2px;
+}
+
+.experience-info-positionTitle {
+  font-size: 15.4px;
+}
+
+.experience-info-description {
+  margin-bottom: 10px;
+}
