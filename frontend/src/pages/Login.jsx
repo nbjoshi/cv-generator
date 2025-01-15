@@ -1,6 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { jwtDecode } from "jwt-decode";
+import { AuthContext } from "../AuthContext";
+import "../styles/Login.css";
 
 export default function Login() {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -11,6 +15,7 @@ export default function Login() {
     password: "",
   });
   const navigate = useNavigate();
+  const { setIsLoggedIn } = useContext(AuthContext);
 
   const checkTokenExpiry = (token) => {
     try {
@@ -52,6 +57,7 @@ export default function Login() {
         const storage = checked ? localStorage : sessionStorage;
         storage.setItem("token", data.access_token);
         setFormData({ username: "", password: "" });
+        setIsLoggedIn(true);
         navigate("/menu");
       } else {
         const errorData = await response.json();
@@ -66,60 +72,52 @@ export default function Login() {
   };
 
   return (
-    <div className="flex flex-col gap-6 items-center px-4 sm:px-6 lg:px-8">
-      <h1 className="text-2xl sm:text-3xl font-bold mb-2">Login</h1>
-      <form
-        className="flex flex-col gap-4 w-full max-w-md"
-        onSubmit={handleSubmit}
-      >
+    <div className="login-container">
+      <h1 className="login-title">Login</h1>
+      <form className="login-form" onSubmit={handleSubmit}>
         <input
           type="text"
           placeholder="Username"
           value={formData.username}
-          className="outline-none border-black border-2 p-2 rounded-md"
+          className="input-field"
           onChange={(e) =>
             setFormData({ ...formData, username: e.target.value })
           }
         />
-        <div className="relative">
+        <div className="password-container">
           <input
             type={passwordVisible ? "text" : "password"}
             placeholder="Password"
             value={formData.password}
-            className="outline-none border-black border-2 p-2 rounded-md w-full pr-10"
+            className="input-field password-field"
             onChange={(e) =>
               setFormData({ ...formData, password: e.target.value })
             }
           />
           <button
             type="button"
-            className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-600 hover:text-gray-800"
+            className="toggle-password"
             onClick={() => setPasswordVisible(!passwordVisible)}
           >
             {passwordVisible ? (
-              <i className="fa-solid fa-eye"></i>
+              <FontAwesomeIcon icon={faEye} />
             ) : (
-              <i className="fa-solid fa-eye-slash"></i>
+              <FontAwesomeIcon icon={faEyeSlash} />
             )}
           </button>
         </div>
-        <div>
+        <div className="checkbox-container">
           <input
             type="checkbox"
             id="remember"
-            className="mr-2"
             onChange={(e) => setChecked(e.target.checked)}
           />
           <label htmlFor="remember">Remember me</label>
         </div>
-        <button
-          className="border-black border-2 rounded-full w-[50%] py-2 bg-black text-white hover:bg-gray-800 transition mx-auto"
-          type="submit"
-          disabled={loading}
-        >
+        <button className="submit-button" type="submit" disabled={loading}>
           {loading ? "Signing in..." : "Sign in"}
         </button>
-        <NavLink to="/login" className="underline mx-auto">
+        <NavLink to="/signup" className="forgot-password">
           Forgot Password?
         </NavLink>
       </form>

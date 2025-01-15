@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
 import "./styles/App.css";
 import PersonalDetails from "./components/personal/PersonalDetails";
 import AddEducationSection from "./components/education/AddEducationSection";
@@ -9,6 +9,8 @@ import exampleData, { generateUniqueId } from "./example-data";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import { useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "./AuthContext";
 
 export default function App() {
   const [personalInfo, setPersonalInfo] = useState(exampleData.personalInfo);
@@ -16,6 +18,8 @@ export default function App() {
   const [sectionOpen, setSectionOpen] = useState(null);
   const [currentPage, setCurrentPage] = useState("content");
   const [resumeLayout, setResumeLayout] = useState("top");
+  const { isLoggedIn } = useContext(AuthContext);
+  const navigate = useNavigate();
   const [prevState, setPrevState] = useState(null);
   // Creates a reference object that persists across renders
   // Doesn't cause re-renders when updated
@@ -129,12 +133,35 @@ export default function App() {
     });
   }
 
+  useEffect(() => {
+    const verifyToken = async () => {
+      const token =
+        localStorage.getItem("token") || sessionStorage.getItem("token");
+      console.log(token);
+      try {
+        if (!token) {
+          throw new Error("No token found");
+        }
+        const response = await fetch(
+          `http://127.0.0.1:8000/verify-token/${token}`
+        );
+        if (!response.ok) {
+          throw new Error("Token not verified");
+        }
+      } catch (error) {
+        localStorage.removeItem("token");
+        sessionStorage.removeItem("token");
+        navigate("/");
+      }
+    };
+    verifyToken();
+  }, [navigate]);
+
   const toggleCollapsed = (e) => toggleValue(e, "isCollapsed");
   const toggleHidden = (e) => toggleValue(e, "isHidden");
 
   return (
     <>
-      <Navbar />
       <div className="app">
         <div className="edit-side">
           <div className="form-container">

@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import "../styles/Signup.css";
 
 export default function Signup() {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -73,24 +74,19 @@ export default function Signup() {
   };
 
   return (
-    <div className="flex flex-col gap-6 items-center px-4 sm:px-6 lg:px-8">
-      <div className="text-center">
-        <h1 className="text-2xl sm:text-3xl font-bold mb-2">
-          Are you ready to get hired sooner?
-        </h1>
-        <p className="text-sm sm:text-base">
+    <div className="signup-container">
+      <div className="signup-header">
+        <h1 className="signup-title">Are you ready to get hired sooner?</h1>
+        <p className="signup-subtitle">
           Join and unlock your full career potential.
         </p>
       </div>
-      <form
-        className="flex flex-col gap-4 w-full max-w-md"
-        onSubmit={handleSubmit}
-      >
+      <form className="signup-form" onSubmit={handleSubmit}>
         <input
           type="email"
           placeholder="Email"
           value={formData.email}
-          className="outline-none border-black border-2 p-2 rounded-md"
+          className="signup-input"
           onChange={(e) => {
             setFormData({ ...formData, email: e.target.value });
           }}
@@ -99,24 +95,24 @@ export default function Signup() {
           type="text"
           placeholder="Username"
           value={formData.username}
-          className="outline-none border-black border-2 p-2 rounded-md"
+          className="signup-input"
           onChange={(e) => {
             setFormData({ ...formData, username: e.target.value });
           }}
         />
-        <div className="relative">
+        <div className="password-container">
           <input
             type={passwordVisible ? "text" : "password"}
             placeholder="Password"
             value={formData.password}
-            className="outline-none border-black border-2 p-2 rounded-md w-full pr-10"
+            className="signup-input password-input"
             onChange={(e) => {
               setFormData({ ...formData, password: e.target.value });
             }}
           />
           <button
             type="button"
-            className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-600 hover:text-gray-800"
+            className="password-toggle"
             onClick={() => setPasswordVisible(!passwordVisible)}
           >
             {passwordVisible ? (
@@ -126,15 +122,12 @@ export default function Signup() {
             )}
           </button>
         </div>
-        <button
-          className="border-black border-2 rounded-full w-[50%] py-2 bg-black text-white hover:bg-gray-800 transition mx-auto"
-          type="submit"
-        >
+        <button className="signup-button" type="submit">
           Get Started
         </button>
-        <p className="mx-auto">
+        <p className="signup-footer">
           Already a Member?{" "}
-          <NavLink to="/login" className="underline">
+          <NavLink to="/login" className="signup-link">
             Sign In
           </NavLink>
         </p>
