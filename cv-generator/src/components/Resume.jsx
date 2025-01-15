@@ -2,10 +2,11 @@ import PersonalInfoSection from "./personal/PersonalInfoSection";
 import EducationInfoSection from "./education/EducationInfoSection";
 import ExperienceInfoSection from "./experience/ExperienceInfoSection";
 import "../styles/Resume.css";
+import { forwardRef } from "react";
 
-export default function Resume({ personalInfo, sections, layout }) {
+const Resume = forwardRef(({ personalInfo, sections, layout }, ref) => {
   return (
-    <div className="resume-container">
+    <div className="resume-container" ref={ref}>
       <div className={`resume ${layout}`}>
         <PersonalInfoSection
           fullName={personalInfo.fullName}
@@ -20,4 +21,6 @@ export default function Resume({ personalInfo, sections, layout }) {
       </div>
     </div>
   );
-}
+});
+
+export default Resume;

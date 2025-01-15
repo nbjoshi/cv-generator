@@ -8,6 +8,7 @@ import TemplateLoader from "./components/TemplateLoader";
 import exampleData, { generateUniqueId } from "./example-data";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
+import { useRef } from "react";
 
 export default function App() {
   const [personalInfo, setPersonalInfo] = useState(exampleData.personalInfo);
@@ -16,6 +17,8 @@ export default function App() {
   const [currentPage, setCurrentPage] = useState("content");
   const [resumeLayout, setResumeLayout] = useState("top");
   const [prevState, setPrevState] = useState(null);
+  const resumeRef = useRef(null);
+
   function handlePersonalInfoChange(e) {
     const { key } = e.target.dataset;
     setPersonalInfo({ ...personalInfo, [key]: e.target.value });
@@ -189,8 +192,9 @@ export default function App() {
           personalInfo={personalInfo}
           sections={sections}
           layout={resumeLayout}
+          ref={resumeRef}
         />
-        <Sidebar />
+        <Sidebar resumeRef={resumeRef} />
       </div>
     </>
   );
