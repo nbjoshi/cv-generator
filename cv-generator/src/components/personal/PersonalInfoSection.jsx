@@ -1,6 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "../../styles/personal/PersonalInfoSection.css";
-
 import {
   faEnvelope,
   faPhone,
