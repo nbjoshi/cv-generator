@@ -137,7 +137,6 @@ export default function App() {
     const verifyToken = async () => {
       const token =
         localStorage.getItem("token") || sessionStorage.getItem("token");
-      console.log(token);
       try {
         if (!token) {
           throw new Error("No token found");

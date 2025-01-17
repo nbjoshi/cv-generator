@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import "../styles/Signup.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 export default function Signup() {
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [formData, setFormData] = useState({
     email: "",
     username: "",
@@ -20,6 +23,11 @@ export default function Signup() {
       alert(
         "Password must be at least 8 characters long and contain at least one uppercase letter, lowercase letter, and number."
       );
+      return;
+    }
+    if (formData.password !== confirmPassword) {
+      formData.password !== confirmPassword;
+      alert("Passwords do not match");
       return;
     }
     try {
@@ -116,11 +124,20 @@ export default function Signup() {
             onClick={() => setPasswordVisible(!passwordVisible)}
           >
             {passwordVisible ? (
-              <i className="fa-solid fa-eye"></i>
+              <FontAwesomeIcon icon={faEye} />
             ) : (
-              <i className="fa-solid fa-eye-slash"></i>
+              <FontAwesomeIcon icon={faEyeSlash} />
             )}
           </button>
+          <input
+            type={"password"}
+            placeholder="Confirm Password"
+            value={confirmPassword}
+            className="signup-input password-input"
+            onChange={(e) => {
+              setConfirmPassword(e.target.value);
+            }}
+          />
         </div>
         <button className="signup-button" type="submit">
           Get Started

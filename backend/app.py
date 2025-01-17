@@ -6,10 +6,11 @@ from datetime import datetime, timedelta
 from passlib.context import CryptContext
 from models import User
 from database import SessionLocal, engine
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr
 from fastapi.middleware.cors import CORSMiddleware
 import secrets
 import logging
+from typing import List, Optional
 logging.getLogger('passlib').setLevel(logging.ERROR)
 
 app = FastAPI()
@@ -50,6 +51,32 @@ class UserCreate(BaseModel):
     email: str
     username: str
     password: str
+
+class PersonalInfo(BaseModel):
+    full_name: str
+    email: EmailStr
+    phone_number: Optional[str]
+    address: Optional[str]
+
+class EducationInfo(BaseModel):
+    school_name: str
+    degree: str
+    location: Optional[str]
+    start_date: Optional[str]
+    end_date: Optional[str] 
+
+class ExperienceInfo(BaseModel):
+    company_name: str
+    position_title: str
+    location: Optional[str]
+    start_date: Optional[str]
+    end_date: Optional[str]  # Allow null values for missing end dates
+    description: Optional[str]
+
+class Resume(BaseModel):
+    personal_info: PersonalInfo
+    education: List[EducationInfo]
+    experiences: List[ExperienceInfo]
 
 # Queries the database to get a user by their username
 def get_user_by_username(db: Session, username: str):
@@ -137,7 +164,60 @@ async def verify_user_token(token: str):
     verify_token(token)
     return {"message": "Token is valid"}
 
-# WorkFlow
-# 1. User registers at /register endpoint by submitting a username and password. If new, user is added to the database
-# 2. User logs in at /token endpoint by submitting a username and password. If successful, a JWT token is returned
-# 3. User can verify the token at /verify-token/{token} endpoint by submitting the token.
+@app.post("/save-resume")
+def save_resume(resume_info: Resume, token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
+    payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+    username: str = payload.get("sub")
+    if username is None:
+        raise HTTPException(status_code=403, detail="Invalid token")
+    
+    # Get the user
+    user = get_user_by_username(db, username)
+    if not user:
+        raise HTTPException(status_code=400, detail="User not found")
+    
+    # Create and save the resume
+    db_resume = Resume(
+        user_id=user.id,
+        personal_info=resume_info.personal_info.dict(),
+        education=[edu.model_dump() for edu in resume_info.education],
+        experiences=[exp.model_dump() for exp in resume_info.experiences],
+    )
+    db.add(db_resume)
+    db.commit()
+    db.refresh(db_resume)
+    return {"message": "Resume saved successfully", "resume_id": db_resume.id}
+
+@app.get("/get-resumes", response_model=List[Resume])
+def get_resumes(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
+    payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+    username: str = payload.get("sub")
+    if username is None:
+        raise HTTPException(status_code=403, detail="Invalid token")
+    
+    # Get the user
+    user = get_user_by_username(db, username)
+    if not user:
+        raise HTTPException(status_code=400, detail="User not found")
+    
+    # Get the resumes
+    resumes = db.query(Resume).filter(Resume.user_id == user.id).all()
+    return resumes
+
+@app.get("/get-resume/{resume_id}", response_model=Resume)
+def get_resume_by_id(resume_id: int, token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
+    payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+    username: str = payload.get("sub")
+    if username is None:
+        raise HTTPException(status_code=403, detail="Invalid token")
+    
+    # Get the user
+    user = get_user_by_username(db, username)
+    if not user:
+        raise HTTPException(status_code=400, detail="User not found")
+    
+    # Get the resume
+    resume = db.query(Resume).filter(Resume.id == resume_id).first()
+    if not resume:
+        raise HTTPException(status_code=400, detail="Resume not found")
+    return resume

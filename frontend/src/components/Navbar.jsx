@@ -16,9 +16,7 @@ export default function Navbar() {
 
   return (
     <nav>
-      <NavLink to="/" className="logo">
-        ResuMake
-      </NavLink>
+      <h1 className="logo">ResuMake</h1>
       <ul>
         <li>
           {isLoggedIn ? null : (
