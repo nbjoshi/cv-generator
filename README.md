@@ -1,4 +1,4 @@
-# CV-Generator - IN PROGRESS!
+# CV-Generator - Abandoned till further notice... Reason being, I should've used something like Supabase to store all my data rather than running MySQL locally and then dockerizing it, which would take a lot more effort. Also, the formatting for resume should've used Latex rather than putting text onto a canvas and then converting to a PDF. The project wasn't an overall failure. I got some experience with FastAPI and JWT before joining App Team Carolina as a backend dev. 
 
 ## Overview
 
